@@ -1,0 +1,2 @@
+#!/bin/bash
+git diff --cached --name-only --diff-filter=ACMRTUXB | grep -E '\.(js)(\..+)?$' | xargs ./node_modules/.bin/jshint

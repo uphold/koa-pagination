@@ -1,0 +1,27 @@
+{
+  "name": "bitreserve-errors",
+  "version": "0.0.1",
+  "description": "Bitreserve Errors",
+  "main": "index.js",
+  "engines": {
+    "node": ">= v0.11.13"
+  },
+  "dependencies": {
+    "bignumber.js": "1.5.0",
+    "create-error": "0.3.1",
+    "http": "0.0.0",
+    "lodash": "2.4.1",
+    "sf": "0.1.7",
+    "snake-case": "1.0.1",
+    "validator.js": "1.0.1"
+  },
+  "scripts": {
+    "changelog": "./node_modules/.bin/github-changes -o bitreserve -r backend-errors -a --only-pulls --use-commit-body --title 'Changelog' --date-format '/ YYYY-MM-DD'"
+  },
+  "precommit": [
+    "jshint"
+  ],
+  "author": "Bitreserve",
+  "license": "Proprietary",
+  "repository": "git@github.com:bitreserve/backend-errors"
+}

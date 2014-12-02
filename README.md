@@ -1,0 +1,1 @@
+Bitreserve Errors

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ALL_TESTS='test/*_test.js'
+CMD='node --harmony ./node_modules/.bin/_mocha'
+
+if [[ ! -n "$TEST" ]]; then
+  TEST=$ALL_TESTS;
+fi
+
+NODE_ENV=test ${CMD} -- $TEST;

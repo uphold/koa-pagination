@@ -1,0 +1,43 @@
+{
+  "name": "koa-paginate",
+  "version": "0.0.1",
+  "description": "Koa Paginate",
+  "main": "index.js",
+  "engines": {
+    "node": ">= v0.11.13"
+  },
+  "dependencies": {
+    "debug": "2.1.0",
+    "jscs": "git+ssh://git@github.com:jscs-dev/node-jscs#c536c848c",
+    "jshint": "2.5.10",
+    "lodash": "2.4.1",
+    "precommit-hook": "1.0.7"
+  },
+  "devDependencies": {
+    "chai": "1.10.0",
+    "co-mocha": "1.0.2",
+    "co-supertest": "0.0.7",
+    "koa": "0.13.0",
+    "methods": "1.1.0",
+    "mocha": "2.0.1",
+    "path": "0.4.9",
+    "supertest": "0.15.0",
+    "test": "0.6.0"
+  },
+  "scripts": {
+    "changelog": "./node_modules/.bin/github-changes -o bitreserve -r koa-paginate  -a --only-pulls --use-commit-body --title 'Changelog' --date-format '/ YYYY-MM-DD'",
+    "check-build": "./node_modules/.bin/check-build",
+    "forbidden-keywords": "./bin/scripts/forbidden-keywords",
+    "jscs": "./bin/scripts/jscs-staged-files",
+    "jshint": "./bin/scripts/jshint-staged-files",
+    "test": "./bin/scripts/test"
+  },
+  "precommit": [
+    "forbidden-keywords",
+    "jscs",
+    "jshint"
+  ],
+  "author": "Bitreserve",
+  "license": "Proprietary",
+  "repository": "git@github.com:bitreserve/koa-paginate"
+}

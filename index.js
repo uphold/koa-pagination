@@ -4,70 +4,62 @@
  */
 
 var _ = require('lodash');
-var util = require('util');
+var InvalidRangeError = require('./errors/invalid-range-error');
+var MalformedRangeError = require('./errors/malformed-range-error');
+var contentRange = require('content-range');
+var parseRange = require('range-parser');
 
 /**
  * Export `PagerMiddleware`.
  */
 
 module.exports = function(options) {
-  options = _.extend({
+  options = _.assign({
+    limit: 20,
     maximum: 50
   }, options);
 
   return function *paginate(next) {
-    var contentRange;
-    var from;
-    var limit;
-    var range;
-    var to;
+    // Ensure that `limit` is never higher than `maximum`.
+    var limit = options.limit > options.maximum ? options.maximum : options.limit;
+    var maximum = options.maximum;
+    var offset = 0;
 
     if (this.get('Range')) {
-      range = this.get('Range').split('-');
+      var range = parseRange(maximum + 1, this.get('Range'));
 
-      // Invalid range configuration.
-      if (2 !== _.size(range)) {
-        this.throw(400, 'Range header should have the following configuration: `from-to`.');
+      if (range === -1) {
+        throw new InvalidRangeError();
       }
 
-      from = parseInt(range[0]);
-      to = parseInt(range[1]);
-
-      // Invalid range configuration.
-      if (isNaN(from) || isNaN(to)) {
-        this.throw(400, 'Range header values must be valid numbers.');
+      if (range === -2) {
+        throw new MalformedRangeError();
       }
 
-      // Calculate limit value.
-      limit = to - from;
-
-      // Invalid range beacon.
-      if (limit >= options.maximum) {
-        this.throw(400, util.format('Can\'t request more than %d items.', options.maximum));
-      }
-
-      // Set range values on context.
-      this.pagination = {
-        limit: limit + 1,
-        offset: from
-      };
+      // Update `limit` and `offset` values.
+      limit = range[0].end;
+      offset = range[0].start;
     }
 
-    yield *next;
+    // Set range values on context.
+    this.pagination = {
+      limit: limit,
+      offset: offset
+    };
 
-    // Set Content Range header if range and count are defined.
-    if (this.get('Range') && undefined !== this.count) {
-      // Handle content range based on available items.
-      contentRange = '*/0';
+    yield* next;
 
-      if (0 < this.count) {
-        contentRange = util.format('%d-%d/%d', from, to, this.count);
-      }
-
-      this.set('Accept-Ranges', 'items');
-      this.set('Access-Control-Expose-Headers', 'Accept-Ranges, Content-Range, Range-Unit');
-      this.set('Content-Range', contentRange);
-      this.set('Range-Unit', 'items');
+    // Fix limit value if is higher than count.
+    if (limit > this.pagination.count) {
+      limit = this.pagination.count;
     }
+
+    // Set `Content-Range` based on available items.
+    this.set('Content-Range', contentRange.format({
+      count: this.pagination.count,
+      limit: limit,
+      name: 'items',
+      offset: this.pagination.offset
+    }));
   };
 };

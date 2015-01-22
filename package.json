@@ -1,26 +1,29 @@
 {
-  "name": "koa-paginate",
+  "name": "koa-pagination",
   "version": "0.0.1",
-  "description": "Koa Paginate",
+  "description": "Koa Pagination",
   "main": "index.js",
   "engines": {
     "node": ">= v0.11.13"
   },
   "dependencies": {
+    "content-range": "0.2.0",
+    "create-error": "0.3.1",
     "debug": "2.1.0",
-    "jscs": "git+ssh://git@github.com:jscs-dev/node-jscs#c536c848c",
-    "jshint": "2.5.10",
     "lodash": "2.4.1",
-    "precommit-hook": "1.0.7"
+    "range-parser": "1.0.2"
   },
   "devDependencies": {
     "chai": "1.10.0",
     "co-mocha": "1.0.2",
     "co-supertest": "0.0.7",
+    "jscs": "git+ssh://git@github.com:jscs-dev/node-jscs#c536c848c",
+    "jshint": "2.5.10",
     "koa": "0.13.0",
     "methods": "1.1.0",
     "mocha": "2.0.1",
     "path": "0.4.9",
+    "precommit-hook": "1.0.7",
     "supertest": "0.15.0",
     "test": "0.6.0"
   },

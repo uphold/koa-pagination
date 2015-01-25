@@ -1,8 +1,7 @@
 # Koa Pagination
+[![Build Status](https://travis-ci.org/seegno/koa-pagination.svg?branch=master)](https://travis-ci.org/seegno/koa-pagination)
 
 Koa Pagination is a middleware to handle [Range Pagination Headers](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) using `Range` & `Content-Range` entity-headers.
-
-[![Build Status](https://travis-ci.org/seegno/koa-pagination.svg?branch=master)](https://travis-ci.org/seegno/koa-pagination)
 
 ## Installation
 
@@ -37,18 +36,16 @@ var paginate = require('koa-pagination');
 var app = koa();
 
 app.get('/', paginate(), function *() {
-  var options = {
-    limit: this.pagination.limit,
-    offset: this.pagination.offset
-  };
-
   // `paginate` middleware will inject a `pagination` object in the `koa` context,
   // which will allow you to use the `pagination.offset` and `pagination.limit`
   // in your data retrieval methods.
-  this.body = Foobar.getData(options);
+  this.body = Foobar.getData({
+    limit: this.pagination.limit,
+    offset: this.pagination.offset
+  });
 
   // This is needed in order to expose the count in `Content-Range` header.
-  this.pagination.count = Foobar.count(options);
+  this.pagination.count = Foobar.count();
 });
 
 app.listen(3000);

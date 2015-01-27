@@ -4,10 +4,10 @@
  */
 
 var _ = require('lodash');
-var InvalidRangeError = require('./errors/invalid-range-error');
 var MalformedRangeError = require('./errors/malformed-range-error');
-var contentRange = require('content-range');
-var parseRange = require('range-parser');
+var RangeNotSatisfiableError = require('./errors/range-not-satisfiable-error');
+var contentRangeFormat = require('http-content-range-format');
+var rangeSpecifierParser = require('range-specifier-parser');
 
 /**
  * Export `PagerMiddleware`.
@@ -15,21 +15,21 @@ var parseRange = require('range-parser');
 
 module.exports = function(options) {
   options = _.assign({
-    limit: 20,
     maximum: 50
   }, options);
 
   return function *paginate(next) {
-    // Ensure that `limit` is never higher than `maximum`.
-    var limit = options.limit > options.maximum ? options.maximum : options.limit;
+    var first = 0;
+    var last = options.maximum;
     var maximum = options.maximum;
-    var offset = 0;
+    var unit = 'bytes';
 
+    // Handle `Range` header.
     if (this.get('Range')) {
-      var range = parseRange(maximum + 1, this.get('Range'));
+      var range = rangeSpecifierParser(this.get('Range'));
 
       if (range === -1) {
-        throw new InvalidRangeError();
+        throw new RangeNotSatisfiableError();
       }
 
       if (range === -2) {
@@ -37,29 +37,40 @@ module.exports = function(options) {
       }
 
       // Update `limit` and `offset` values.
-      limit = range[0].end;
-      offset = range[0].start;
+      first = range.first;
+      last = range.last;
+      unit = range.unit;
     }
 
-    // Set range values on context.
+    // Set pagination object on context.
     this.pagination = {
-      limit: limit,
-      offset: offset
+      limit: last + 1,
+      offset: first
     };
+
+    // Prevent pages with more items than allowed.
+    if ((last - first + 1) > maximum) {
+      last = first + maximum - 1;
+    }
 
     yield* next;
 
-    // Fix limit value if is higher than count.
-    if (limit > this.pagination.count) {
-      limit = this.pagination.count;
+    var length = this.pagination.length;
+
+    // Fix `last` value if `length` is lower.
+    if (last > length) {
+      last = length - 1;
     }
 
     // Set `Content-Range` based on available items.
-    this.set('Content-Range', contentRange.format({
-      count: this.pagination.count,
-      limit: limit,
-      name: 'items',
-      offset: this.pagination.offset
+    this.set('Content-Range', contentRangeFormat({
+      first: first,
+      last: last,
+      length: length,
+      unit: unit
     }));
+
+    // Set the response as `Partial Content`.
+    this.status = 206;
   };
 };

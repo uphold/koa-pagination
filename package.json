@@ -1,6 +1,6 @@
 {
   "name": "koa-pagination",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Koa Pagination",
   "main": "index.js",
   "engines": {

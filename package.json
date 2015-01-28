@@ -7,11 +7,12 @@
     "node": ">= v0.11.13"
   },
   "dependencies": {
-    "content-range": "0.2.0",
     "create-error": "0.3.1",
     "debug": "2.1.0",
+    "http-content-range-format": "1.0.0",
     "lodash": "2.4.1",
-    "range-parser": "1.0.2"
+    "range-specifier-parser": "0.1.0",
+    "util": "0.10.3"
   },
   "devDependencies": {
     "chai": "1.10.0",

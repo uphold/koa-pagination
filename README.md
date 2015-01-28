@@ -13,20 +13,15 @@ Choose your preferred method:
 ### Configuration
 
 The middleware can be configured with the following parameters:
-- Limit: Default number of items per page (20 items by default).
 - Maximum: Maximum number of items allowed per page (50 items by default).
 
 You can change the defaults by doing:
 
 ```js
 paginate({
-  limit: 10,
   maximum: 100
 });
 ```
-
-**Note** the default limit value is used only in the absence of the `Range` header.
-
 ## Usage
 
 ```js
@@ -39,17 +34,18 @@ app.get('/', paginate(), function *() {
   // `paginate` middleware will inject a `pagination` object in the `koa` context,
   // which will allow you to use the `pagination.offset` and `pagination.limit`
   // in your data retrieval methods.
-  this.body = Foobar.getData({
+  this.body = foobar.getData({
     limit: this.pagination.limit,
     offset: this.pagination.offset
   });
 
-  // This is needed in order to expose the count in `Content-Range` header.
-  this.pagination.count = Foobar.count();
+  // This is needed in order to expose the length in `Content-Range` header.
+  this.pagination.length = foobar.count();
 });
 
 app.listen(3000);
 ```
+
 
 ### Request
 
@@ -67,7 +63,7 @@ This will generate a response with the following `Content-Range` header:
 'Content-Range: items 0-4/*'
 ```
 
-The `*` will be replaced with the total number of items provided in the `pagination.count` variable.
+The `*` will be replaced with the total number of items provided in the `length` variable.
 
 ## Running tests
 

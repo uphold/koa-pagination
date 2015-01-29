@@ -4,6 +4,7 @@
  */
 
 var _ = require('lodash');
+var InvalidConfigurationError = require('./errors/invalid-configuration-error');
 var MalformedRangeError = require('./errors/malformed-range-error');
 var RangeNotSatisfiableError = require('./errors/range-not-satisfiable-error');
 var contentRangeFormat = require('http-content-range-format');
@@ -24,6 +25,11 @@ module.exports = function(options) {
     var maximum = options.maximum;
     var unit = 'bytes';
 
+    // Prevent invalid `maximum` value configuration.
+    if (!_.isFinite(maximum) || maximum <= 0) {
+      throw new InvalidConfigurationError();
+    }
+
     // Handle `Range` header.
     if (this.get('Range')) {
       var range = rangeSpecifierParser(this.get('Range'));
@@ -36,33 +42,44 @@ module.exports = function(options) {
         throw new MalformedRangeError();
       }
 
-      // Update `limit` and `offset` values.
+      // Update `limit`, `offset` and `unit` values.
       first = range.first;
       last = range.last;
       unit = range.unit;
     }
 
-    // Set pagination object on context.
-    this.pagination = {
-      limit: last + 1,
-      offset: first
-    };
-
-    // Prevent pages with more items than allowed.
+    // Prevent pages to be longer than allowed.
     if ((last - first + 1) > maximum) {
       last = first + maximum - 1;
     }
+
+    // Set pagination object on context.
+    this.pagination = {
+      limit: last - first + 1,
+      offset: first
+    };
 
     yield* next;
 
     var length = this.pagination.length;
 
+    // Prevent nonexistent pages.
+    if (first > length - 1 && length > 0) {
+      throw new RangeNotSatisfiableError();
+    }
+
     // Fix `last` value if `length` is lower.
-    if (last > length) {
+    if (last + 1 > length && length !== 0) {
       last = length - 1;
     }
 
-    // Set `Content-Range` based on available items.
+    // Set `byte-range-spec` to undefined value - `*`.
+    if (length === 0) {
+        first = undefined;
+        last = undefined;
+    }
+
+    // Set `Content-Range` based on available units.
     this.set('Content-Range', contentRangeFormat({
       first: first,
       last: last,

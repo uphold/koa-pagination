@@ -1,5 +1,7 @@
 # Koa Pagination
-[![Build Status](https://travis-ci.org/seegno/koa-pagination.svg?branch=master)](https://travis-ci.org/seegno/koa-pagination)
+
+[![npm version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
 
 Koa Pagination is a middleware to handle [Range Pagination Headers](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) using `Range` & `Content-Range` entity-headers.
 
@@ -70,3 +72,8 @@ The `*` will be replaced with the total number of items provided in the `length`
 ```sh
 npm test
 ```
+
+[npm-image]: https://img.shields.io/npm/v/koa-pagination.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/koa-pagination
+[travis-image]: https://img.shields.io/travis/seegno/koa-pagination.svg?style=flat-square
+[travis-url]: https://travis-ci.org/seegno/koa-pagination

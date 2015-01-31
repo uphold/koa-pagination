@@ -2,6 +2,8 @@
 
 [![npm version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
+[![Code Climate][codeclimate-gpa-image]][codeclimate-url]
+[![Test Coverage][codeclimate-coverage-image]][codeclimate-url]
 
 Koa Pagination is a middleware to handle [Range Pagination Headers](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) using `Range` & `Content-Range` entity-headers.
 
@@ -48,7 +50,6 @@ app.get('/', paginate(), function *() {
 app.listen(3000);
 ```
 
-
 ### Request
 
 You can provide the `Range` header specifying the items you want to retrieve. For instance to retrieve the first 5 elements:
@@ -77,3 +78,6 @@ npm test
 [npm-url]: https://npmjs.org/package/koa-pagination
 [travis-image]: https://img.shields.io/travis/seegno/koa-pagination.svg?style=flat-square
 [travis-url]: https://travis-ci.org/seegno/koa-pagination
+[codeclimate-coverage-image]: https://img.shields.io/codeclimate/coverage/github/seegno/koa-pagination.svg?style=flat-square
+[codeclimate-gpa-image]: https://img.shields.io/codeclimate/github/seegno/koa-pagination.svg?style=flat-square
+[codeclimate-url]: https://codeclimate.com/github/seegno/koa-pagination

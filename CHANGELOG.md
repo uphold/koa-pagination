@@ -1,5 +1,11 @@
 ## Changelog
 
+### 0.1.3 / 2015-02-02
+- [#13](https://github.com/seegno/koa-pagination/pull/13) Add codeclimate `gpa` and `coverage` badges (@franciscocardoso)
+- [#14](https://github.com/seegno/koa-pagination/pull/14) Add npm badge (@fixe)
+- [#12](https://github.com/seegno/koa-pagination/pull/12) Rename test file to `index_test` (@franciscocardoso)
+- [#11](https://github.com/seegno/koa-pagination/pull/11) Fix error in example `content-range` value (@franciscocardoso)
+
 ### 0.1.2 / 2015-01-29
 - [#10](https://github.com/seegno/koa-pagination/pull/10) Fix github repository name (@franciscocardoso)
 

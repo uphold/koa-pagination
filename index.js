@@ -88,6 +88,8 @@ module.exports = function(options) {
     }));
 
     // Set the response as `Partial Content`.
-    this.status = 206;
+    if (this.get('Range')) {
+      this.status = 206;
+    }
   };
 };

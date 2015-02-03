@@ -16,6 +16,33 @@ chai.should();
  */
 
 describe('paginate', function() {
+  it('should return 200 if no `Range` header is provided', function *() {
+    var app = koa();
+
+    app.use(paginate());
+
+    app.use(function *() {
+      this.body = '';
+    });
+
+    yield request(app.listen())
+      .get('/')
+      .expect(200)
+      .end();
+  });
+
+  it('should return 206 if a valid `Range` header is provided', function *() {
+    var app = koa();
+
+    app.use(paginate());
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=0-5')
+      .expect(206)
+      .end();
+  });
+
   it('should use the default values', function *() {
     var app = koa();
 
@@ -23,7 +50,6 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect(206)
       .expect('Content-Range', 'bytes 0-49/*')
       .end();
   });
@@ -35,7 +61,6 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect(206)
       .expect('Content-Range', 'bytes 0-2/*')
       .end();
   });
@@ -81,7 +106,6 @@ describe('paginate', function() {
     yield request(app.listen())
       .get('/')
       .set('Range', 'items=0-5')
-      .expect(206)
       .expect('Content-Range', 'items 0-5/*')
       .end();
   });
@@ -169,7 +193,6 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect(206)
       .set('Range', 'items=0-5')
       .expect('Content-Range', 'items 0-2/3')
       .end();
@@ -187,7 +210,6 @@ describe('paginate', function() {
     yield request(app.listen())
       .get('/')
       .set('Range', 'items=0-20')
-      .expect(206)
       .expect('Content-Range', 'items 0-19/20')
       .end();
   });
@@ -199,7 +221,6 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect(206)
       .set('Range', 'items=0-5')
       .expect('Content-Range', 'items 0-2/*')
       .end();
@@ -219,7 +240,6 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect(206)
       .set('Range', util.format('items=%s-%s', firstPosition, lastPosition))
       .end();
   });
@@ -236,7 +256,6 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect(206)
       .set('Range', util.format('items=%s-5', firstPosition))
       .end();
   });
@@ -252,7 +271,6 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect(206)
       .expect('Content-Range', 'bytes */0')
       .end();
   });

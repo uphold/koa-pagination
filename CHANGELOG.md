@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.2.0 / 2015-02-03
+- [#18](https://github.com/seegno/koa-pagination/pull/18) Update response status (@franciscocardoso)
+
 ### 0.1.3 / 2015-02-02
 - [#13](https://github.com/seegno/koa-pagination/pull/13) Add codeclimate `gpa` and `coverage` badges (@franciscocardoso)
 - [#14](https://github.com/seegno/koa-pagination/pull/14) Add npm badge (@fixe)

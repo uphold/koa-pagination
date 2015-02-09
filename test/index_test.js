@@ -50,7 +50,7 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect('Content-Range', 'bytes 0-49/*')
+      .expect('Content-Range', 'items 0-49/*')
       .end();
   });
 
@@ -61,7 +61,7 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .expect('Content-Range', 'bytes 0-2/*')
+      .expect('Content-Range', 'items 0-2/*')
       .end();
   });
 
@@ -129,7 +129,7 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .set('Range', 'bytes=5-1')
+      .set('Range', 'items=5-1')
       .expect(416, 'Range Not Satisfiable')
       .end();
   });
@@ -263,7 +263,7 @@ describe('paginate', function() {
   it('should set the `byte-range-spec` to `*` if length is 0', function *() {
     var app = koa();
 
-    app.use(paginate());
+    app.use(paginate({ unit: 'bytes' }));
 
     app.use(function *() {
       this.pagination.length = 0;

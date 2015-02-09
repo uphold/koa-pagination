@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.3.0 / 2015-02-09
+- [#20](https://github.com/seegno/koa-pagination/pull/20) Change default unit to `items` (@fixe)
+- [#19](https://github.com/seegno/koa-pagination/pull/19) Allow specifying `unit` option (@fixe)
+
 ### 0.2.0 / 2015-02-03
 - [#18](https://github.com/seegno/koa-pagination/pull/18) Update response status (@franciscocardoso)
 

@@ -17,7 +17,7 @@ var rangeSpecifierParser = require('range-specifier-parser');
 module.exports = function(options) {
   options = _.assign({
     maximum: 50,
-    unit: 'bytes'
+    unit: 'items'
   }, options);
 
   return function *paginate(next) {

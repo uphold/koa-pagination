@@ -17,13 +17,15 @@ Choose your preferred method:
 ### Configuration
 
 The middleware can be configured with the following parameters:
-- Maximum: Maximum number of items allowed per page (50 items by default).
+- Maximum: Maximum number of items allowed per page (`50` by default).
+- Unit: Range unit to be used when no `Range` header is provided (`items` by default).
 
 You can change the defaults by doing:
 
 ```js
 paginate({
-  maximum: 100
+  maximum: 100,
+  unit: 'bytes'
 });
 ```
 ## Usage

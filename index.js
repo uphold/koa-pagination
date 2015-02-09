@@ -16,14 +16,15 @@ var rangeSpecifierParser = require('range-specifier-parser');
 
 module.exports = function(options) {
   options = _.assign({
-    maximum: 50
+    maximum: 50,
+    unit: 'bytes'
   }, options);
 
   return function *paginate(next) {
     var first = 0;
     var last = options.maximum;
     var maximum = options.maximum;
-    var unit = 'bytes';
+    var unit = options.unit;
 
     // Prevent invalid `maximum` value configuration.
     if (!_.isFinite(maximum) || maximum <= 0) {

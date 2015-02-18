@@ -57,7 +57,7 @@ app.listen(3000);
 You can provide the `Range` header specifying the items you want to retrieve. For instance to retrieve the first 5 elements:
 
 ```js
-'Range: items=0-5'
+'Range: items=0-4'
 ```
 
 ### Response
@@ -65,7 +65,7 @@ You can provide the `Range` header specifying the items you want to retrieve. Fo
 This will generate a response with the following `Content-Range` header:
 
 ```js
-'Content-Range: items 0-5/*'
+'Content-Range: items 0-4/*'
 ```
 
 The `*` will be replaced with the total number of items provided in the `length` variable.

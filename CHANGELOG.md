@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.3.1 / 2015-02-26
+- [#21](https://github.com/seegno/koa-pagination/pull/21) Fix readme headers example (@nunorafaelrocha)
+
 ### 0.3.0 / 2015-02-09
 - [#20](https://github.com/seegno/koa-pagination/pull/20) Change default unit to `items` (@fixe)
 - [#19](https://github.com/seegno/koa-pagination/pull/19) Allow specifying `unit` option (@fixe)

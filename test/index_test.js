@@ -3,13 +3,10 @@
  * Module dependencies.
  */
 
-var chai = require('chai');
 var koa = require('koa');
 var paginate = require('../');
 var request = require('./request')();
 var util = require('util');
-
-chai.should();
 
 /**
  * Test `paginate`.

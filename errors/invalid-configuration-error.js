@@ -3,10 +3,25 @@
  * Module dependencies.
  */
 
-var errors = require('create-error');
+const HttpError = require('standard-http-error');
+const util = require('util');
+
+/**
+ * Constructor.
+ */
+
+function InvalidConfigurationError() {
+  HttpError.call(this);
+}
+
+/**
+ * Inherit from `HttpError`.
+ */
+
+util.inherits(InvalidConfigurationError, HttpError);
 
 /**
  * Export `InvalidConfigurationError`.
  */
 
-module.exports = errors('InvalidConfigurationError');
+module.exports = InvalidConfigurationError;

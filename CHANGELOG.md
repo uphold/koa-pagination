@@ -1,5 +1,10 @@
 ## Changelog
 
+### 1.0.0 / 2015-12-10
+- [#25](https://github.com/seegno/koa-pagination/pull/25) Remove usage of `chai` (@franciscocardoso)
+- [#24](https://github.com/seegno/koa-pagination/pull/24) Prevent usage of unsafe numbers (@franciscocardoso)
+- [#23](https://github.com/seegno/koa-pagination/pull/23) Replace `create-error` with `standard-http-error` (@franciscocardoso)
+
 ### 0.3.1 / 2015-02-26
 - [#21](https://github.com/seegno/koa-pagination/pull/21) Fix readme headers example (@nunorafaelrocha)
 

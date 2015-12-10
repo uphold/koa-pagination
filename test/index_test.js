@@ -98,6 +98,17 @@ describe('paginate', function() {
       .end();
   });
 
+  it('should give and error if `maximum` is not a safe integer', function *() {
+    var app = koa();
+
+    app.use(paginate({ maximum: 9007199254740993 }));
+
+    yield request(app.listen())
+      .get('/')
+      .expect(500)
+      .end();
+  });
+
   it('should accept a `Range` header', function *() {
     var app = koa();
 
@@ -178,6 +189,30 @@ describe('paginate', function() {
     yield request(app.listen())
       .get('/')
       .set('Range', 'items=11-11')
+      .expect(416)
+      .end();
+  });
+
+  it('should give and error if `first position` is not a safe integer', function *() {
+    var app = koa();
+
+    app.use(paginate());
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=9007199254740992-9007199254740993')
+      .expect(416)
+      .end();
+  });
+
+  it('should give and error if `last position` is not a safe integer', function *() {
+    var app = koa();
+
+    app.use(paginate());
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=1-9007199254740992')
       .expect(416)
       .end();
   });

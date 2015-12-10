@@ -8,6 +8,7 @@ var InvalidConfigurationError = require('./errors/invalid-configuration-error');
 var MalformedRangeError = require('./errors/malformed-range-error');
 var RangeNotSatisfiableError = require('./errors/range-not-satisfiable-error');
 var contentRangeFormat = require('http-content-range-format');
+var isSafeInteger = require('is-safe-integer');
 var rangeSpecifierParser = require('range-specifier-parser');
 
 /**
@@ -27,7 +28,7 @@ module.exports = function(options) {
     var unit = options.unit;
 
     // Prevent invalid `maximum` value configuration.
-    if (!_.isFinite(maximum) || maximum <= 0) {
+    if (!_.isFinite(maximum) || !isSafeInteger(maximum) || maximum <= 0) {
       throw new InvalidConfigurationError();
     }
 
@@ -47,6 +48,10 @@ module.exports = function(options) {
       first = range.first;
       last = range.last;
       unit = range.unit;
+
+      if (!isSafeInteger(first) || !isSafeInteger(last)) {
+        throw new RangeNotSatisfiableError();
+      }
     }
 
     // Prevent pages to be longer than allowed.

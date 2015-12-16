@@ -62,7 +62,8 @@ module.exports = function(options) {
     // Set pagination object on context.
     this.pagination = {
       limit: last - first + 1,
-      offset: first
+      offset: first,
+      unit: unit
     };
 
     yield* next;

@@ -10,8 +10,8 @@ const util = require('util');
  * Constructor.
  */
 
-function MalformedRangeError(message, properties) {
-  HttpError.call(this, 412, message, properties);
+function MalformedRangeError() {
+  HttpError.call(this, 412, 'Malformed Range Error');
 }
 
 /**

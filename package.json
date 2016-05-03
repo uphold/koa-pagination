@@ -25,12 +25,13 @@
     "mocha": "2.0.1",
     "path": "0.4.9",
     "precommit-hook": "1.0.7",
+    "should": "^8.3.1",
     "supertest": "0.15.0",
     "test": "0.6.0"
   },
   "scripts": {
     "changelog": "./node_modules/.bin/github-changes -o seegno -r koa-pagination  -a --only-pulls --use-commit-body --title 'Changelog' --date-format '/ YYYY-MM-DD'",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony-generators test/*_test.js"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony-generators --recursive test"
   },
   "author": "Seegno",
   "license": "MIT",

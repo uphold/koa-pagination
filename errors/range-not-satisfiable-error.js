@@ -10,8 +10,8 @@ const util = require('util');
  * Constructor.
  */
 
-function RangeNotSatisfiableError(message, properties) {
-  HttpError.call(this, 416, message, properties);
+function RangeNotSatisfiableError() {
+  HttpError.call(this, 416);
 }
 
 /**

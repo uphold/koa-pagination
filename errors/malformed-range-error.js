@@ -11,7 +11,7 @@ const util = require('util');
  */
 
 function MalformedRangeError() {
-  HttpError.call(this, 412);
+  HttpError.call(this, 412, 'Malformed Range Error');
 }
 
 /**

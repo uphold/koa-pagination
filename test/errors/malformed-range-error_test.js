@@ -26,6 +26,6 @@ describe('MalformedRangeError', function() {
   it('should have a default message', function() {
     const error = new MalformedRangeError();
 
-    error.message.should.equal('Precondition Failed');
+    error.message.should.equal('Malformed Range Error');
   });
 });

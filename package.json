@@ -25,6 +25,7 @@
     "mocha": "2.0.1",
     "path": "0.4.9",
     "precommit-hook": "1.0.7",
+    "should": "^8.3.1",
     "supertest": "0.15.0",
     "test": "0.6.0"
   },

@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.1.1](https://github.com/seegno/koa-pagination/tree/v1.1.1) (2016-05-04)
+[Full Changelog](https://github.com/seegno/koa-pagination/compare/v1.1.0...v1.1.1)
+
+**Merged pull requests:**
+
+- Update README [\#29](https://github.com/seegno/koa-pagination/pull/29) ([franciscocardoso](https://github.com/franciscocardoso))
+
 ## [v1.1.0](https://github.com/seegno/koa-pagination/tree/v1.1.0) (2016-05-04)
 [Full Changelog](https://github.com/seegno/koa-pagination/compare/v1.0.0...v1.1.0)
 

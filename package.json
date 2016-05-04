@@ -30,7 +30,7 @@
     "test": "0.6.0"
   },
   "scripts": {
-    "changelog": "./node_modules/.bin/github-changes -o seegno -r koa-pagination  -a --only-pulls --use-commit-body --title 'Changelog' --date-format '/ YYYY-MM-DD'",
+    "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony-generators --recursive test"
   },
   "author": "Seegno",

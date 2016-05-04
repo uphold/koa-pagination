@@ -62,7 +62,8 @@ module.exports = function(options) {
     // Set pagination object on context.
     this.pagination = {
       limit: last - first + 1,
-      offset: first
+      offset: first,
+      unit: unit
     };
 
     yield* next;
@@ -81,8 +82,8 @@ module.exports = function(options) {
 
     // Set `byte-range-spec` to undefined value - `*`.
     if (length === 0) {
-        first = undefined;
-        last = undefined;
+      first = undefined;
+      last = undefined;
     }
 
     // Set `Content-Range` based on available units.

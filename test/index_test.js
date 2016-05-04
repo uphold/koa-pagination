@@ -292,6 +292,22 @@ describe('paginate', function() {
       .end();
   });
 
+  it('should expose the given `range-unit`', function *() {
+    var app = koa();
+
+    app.use(paginate({ unit: 'bytes' }));
+
+    app.use(function *() {
+      this.pagination.unit.should.equal('foobar');
+    });
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'foobar=0-5')
+      .expect('Content-Range', 'foobar 0-5/*')
+      .end();
+  });
+
   it('should set the `byte-range-spec` to `*` if length is 0', function *() {
     var app = koa();
 

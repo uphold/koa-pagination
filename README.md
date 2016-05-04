@@ -76,6 +76,15 @@ The `*` will be replaced with the total number of items provided in the `length`
 npm test
 ```
 
+## Release
+
+```sh
+npm version [<newversion> | major | minor | patch] -m "Release %s"
+```
+
+## License
+MIT
+
 [npm-image]: https://img.shields.io/npm/v/koa-pagination.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/koa-pagination
 [travis-image]: https://img.shields.io/travis/seegno/koa-pagination.svg?style=flat-square

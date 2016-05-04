@@ -1,10 +1,15 @@
 {
   "name": "koa-pagination",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Koa Pagination",
+  "license": "MIT",
+  "author": "Seegno",
   "main": "index.js",
-  "engines": {
-    "node": ">= v0.11.13"
+  "repository": "git@github.com:seegno/koa-pagination",
+  "scripts": {
+    "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony-generators --recursive test",
+    "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
   },
   "dependencies": {
     "debug": "2.1.0",
@@ -29,12 +34,7 @@
     "supertest": "0.15.0",
     "test": "0.6.0"
   },
-  "scripts": {
-    "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony-generators --recursive test",
-    "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
-  },
-  "author": "Seegno",
-  "license": "MIT",
-  "repository": "git@github.com:seegno/koa-pagination"
+  "engines": {
+    "node": ">= v0.11.13"
+  }
 }

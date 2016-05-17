@@ -4,49 +4,48 @@
   "description": "Koa Pagination",
   "license": "MIT",
   "author": "Seegno",
-  "main": "index.js",
+  "main": "dist/src",
   "repository": "git@github.com:seegno/koa-pagination",
-  "options": {
-    "mocha": "--compilers js:babel-register --recursive --require co-mocha --require should"
-  },
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
-    "lint": "eslint . && jscs .",
+    "lint": "eslint src test && jscs src test",
+    "prepublish": "npm run transpile",
     "test": "NODE_ENV=test mocha $npm_package_options_mocha",
-    "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
+    "transpile": "rm -rf dist/* && babel src --out-dir dist/src",
+    "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist"
   },
   "dependencies": {
     "debug": "2.2.0",
     "http-content-range-format": "1.0.0",
-    "is-safe-integer": "^1.0.1",
-    "lodash": "4.12.0",
+    "is-safe-integer": "1.0.1",
     "range-specifier-parser": "0.1.0",
     "standard-http-error": "2.0.0",
     "util": "0.10.3"
   },
   "devDependencies": {
+    "babel-cli": "^6.8.0",
     "babel-eslint": "^6.0.4",
     "babel-preset-es2015-node4": "^2.1.0",
     "babel-register": "^6.8.0",
-    "co-mocha": "1.1.2",
-    "co-supertest": "0.0.10",
+    "co-mocha": "^1.1.2",
+    "co-supertest": "^0.0.10",
     "eslint": "^2.10.2",
     "eslint-config-seegno": "^4.0.0",
     "eslint-plugin-babel": "^3.2.0",
     "eslint-plugin-sort-class-members": "^1.0.1",
     "jscs": "^2.11.0",
     "jscs-config-seegno": "^2.0.0",
-    "koa": "1.2.0",
-    "methods": "1.1.2",
-    "mocha": "2.4.5",
-    "path": "0.12.7",
-    "precommit-hook": "3.0.0",
+    "koa": "^1.2.0",
+    "mocha": "^2.4.5",
+    "precommit-hook": "^3.0.0",
     "should": "^8.3.1",
-    "supertest": "1.2.0",
-    "test": "0.6.0"
+    "supertest": "^1.2.0"
   },
   "engines": {
     "node": ">= 4.0.0"
+  },
+  "options": {
+    "mocha": "--compilers js:babel-register --recursive --require co-mocha --require should"
   },
   "pre-commit": [
     "lint"

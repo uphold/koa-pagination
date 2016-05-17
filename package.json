@@ -12,26 +12,26 @@
     "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
   },
   "dependencies": {
-    "debug": "2.1.0",
+    "debug": "2.2.0",
     "http-content-range-format": "1.0.0",
     "is-safe-integer": "^1.0.1",
-    "lodash": "2.4.1",
+    "lodash": "4.12.0",
     "range-specifier-parser": "0.1.0",
     "standard-http-error": "2.0.0",
     "util": "0.10.3"
   },
   "devDependencies": {
-    "co-mocha": "1.0.2",
-    "co-supertest": "0.0.7",
-    "github-changes": "0.0.16",
-    "jshint": "2.5.10",
-    "koa": "0.13.0",
-    "methods": "1.1.0",
-    "mocha": "2.0.1",
-    "path": "0.4.9",
-    "precommit-hook": "1.0.7",
+    "co-mocha": "1.1.2",
+    "co-supertest": "0.0.10",
+    "github-changes": "1.0.2",
+    "jshint": "2.9.2",
+    "koa": "1.2.0",
+    "methods": "1.1.2",
+    "mocha": "2.4.5",
+    "path": "0.12.7",
+    "precommit-hook": "3.0.0",
     "should": "^8.3.1",
-    "supertest": "0.15.0",
+    "supertest": "1.2.0",
     "test": "0.6.0"
   },
   "engines": {

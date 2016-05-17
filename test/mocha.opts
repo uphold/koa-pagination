@@ -1,6 +1,0 @@
---require co-mocha
---require should
---ui bdd
---reporter spec
---timeout 10000
---bail

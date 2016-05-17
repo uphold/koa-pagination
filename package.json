@@ -6,10 +6,13 @@
   "author": "Seegno",
   "main": "index.js",
   "repository": "git@github.com:seegno/koa-pagination",
+  "options": {
+    "mocha": "--compilers js:babel-register --recursive --require co-mocha --require should"
+  },
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
     "lint": "eslint . && jscs .",
-    "test": "NODE_ENV=test mocha --recursive",
+    "test": "NODE_ENV=test mocha $npm_package_options_mocha",
     "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
   },
   "dependencies": {

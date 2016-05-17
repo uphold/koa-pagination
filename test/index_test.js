@@ -6,7 +6,6 @@
 import koa from 'koa';
 import paginate from '../src';
 import request from './request';
-import util from 'util';
 
 /**
  * Test `paginate`.
@@ -272,7 +271,7 @@ describe('paginate', () => {
 
     yield request(app.listen())
       .get('/')
-      .set('Range', util.format('items=%s-%s', firstPosition, lastPosition))
+      .set('Range', `items=${firstPosition}-${lastPosition}`)
       .end();
   });
 
@@ -288,7 +287,7 @@ describe('paginate', () => {
 
     yield request(app.listen())
       .get('/')
-      .set('Range', util.format('items=%s-5', firstPosition))
+      .set('Range', `items=${firstPosition}-5`)
       .end();
   });
 

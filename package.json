@@ -8,7 +8,7 @@
   "repository": "git@github.com:seegno/koa-pagination",
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony-generators --recursive test",
+    "test": "NODE_ENV=test mocha --recursive",
     "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
   },
   "dependencies": {

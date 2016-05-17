@@ -1,0 +1,4 @@
+extends: seegno
+
+rules:
+  require-yield: 0

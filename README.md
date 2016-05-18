@@ -56,6 +56,12 @@ You can provide the `Range` header specifying the items you want to retrieve. Fo
 'Range: items=0-4'
 ```
 
+You can also provide `*` at the end of the range in order to retrieve the all of the available items:
+
+```javascript
+'Range: items=0-*'
+```
+
 ### Response
 
 The first example will generate a response with the following `Content-Range` header:

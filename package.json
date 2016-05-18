@@ -18,7 +18,7 @@
     "debug": "2.2.0",
     "http-content-range-format": "1.0.0",
     "is-safe-integer": "1.0.1",
-    "range-specifier-parser": "v1.0.0",
+    "range-specifier-parser": "v1.0.1",
     "standard-http-error": "2.0.0",
     "util": "0.10.3"
   },

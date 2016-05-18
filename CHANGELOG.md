@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.0.0](https://github.com/seegno/koa-pagination/tree/v2.0.0) (2016-05-18)
+[Full Changelog](https://github.com/seegno/koa-pagination/compare/v1.1.1...v2.0.0)
+
+**Merged pull requests:**
+
+- Add asterisk support [\#32](https://github.com/seegno/koa-pagination/pull/32) ([nunofgs](https://github.com/nunofgs))
+- Refactor to es6 standards [\#31](https://github.com/seegno/koa-pagination/pull/31) ([nunofgs](https://github.com/nunofgs))
+- Update dependencies [\#30](https://github.com/seegno/koa-pagination/pull/30) ([nunofgs](https://github.com/nunofgs))
+
 ## [v1.1.1](https://github.com/seegno/koa-pagination/tree/v1.1.1) (2016-05-04)
 [Full Changelog](https://github.com/seegno/koa-pagination/compare/v1.1.0...v1.1.1)
 

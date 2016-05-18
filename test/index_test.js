@@ -213,6 +213,34 @@ describe('paginate', () => {
       .end();
   });
 
+  it('should return 206 if `last position` is `*`', function *() {
+    const app = koa();
+
+    app.use(paginate());
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=0-*')
+      .expect(206)
+      .end();
+  });
+
+  it('should return the `length` if `last position` is `*`', function *() {
+    const app = koa();
+
+    app.use(paginate());
+
+    app.use(function *() {
+      this.pagination.length = 20;
+    });
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=0-*')
+      .expect('Content-Range', 'items 0-19/20')
+      .end();
+  });
+
   it('should not allow `last position` value to be higher than `length`', function *() {
     const app = koa();
 

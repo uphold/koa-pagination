@@ -31,10 +31,10 @@ paginate({
 ## Usage
 
 ```js
-var koa = require('koa');
-var paginate = require('koa-pagination');
+import koa from 'koa';
+import paginate from 'koa-pagination';
 
-var app = koa();
+const app = koa();
 
 app.get('/', paginate(), function *() {
   // `paginate` middleware will inject a `pagination` object in the `koa` context,

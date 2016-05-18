@@ -61,7 +61,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `maximum` is not a number', function *() {
+  it('should return 500 if `maximum` is not a number', function *() {
     const app = koa();
 
     app.use(paginate({ maximum: 'invalid' }));
@@ -72,7 +72,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `maximum` is 0', function *() {
+  it('should return 500 if `maximum` is 0', function *() {
     const app = koa();
 
     app.use(paginate({ maximum: 0 }));
@@ -83,7 +83,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `maximum` is lower than 0', function *() {
+  it('should return 500 if `maximum` is lower than 0', function *() {
     const app = koa();
 
     app.use(paginate({ maximum: -1 }));
@@ -94,7 +94,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `maximum` is not a safe integer', function *() {
+  it('should return 500 if `maximum` is not a safe integer', function *() {
     const app = koa();
 
     app.use(paginate({ maximum: 9007199254740993 }));
@@ -117,7 +117,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give an error if the `Range` is malformed', function *() {
+  it('should return 412 if the `Range` is malformed', function *() {
     const app = koa();
 
     app.use(paginate());
@@ -129,7 +129,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give an error if the `Range` is invalid', function *() {
+  it('should return 416 if the `Range` is invalid', function *() {
     const app = koa();
 
     app.use(paginate());
@@ -141,7 +141,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `first position` value is higher than `length`', function *() {
+  it('should return 416 if `first position` value is higher than `length`', function *() {
     const app = koa();
 
     app.use(paginate());
@@ -157,7 +157,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `first position` and `last position` have equal values and are equal to `length`', function *() {
+  it('should return 416 if `first position` and `last position` have equal values and are equal to `length`', function *() {
     const app = koa();
 
     app.use(paginate());
@@ -173,7 +173,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `first position` and `last position` have equal values and are higher than `length`', function *() {
+  it('should return 416 if `first position` and `last position` have equal values and are higher than `length`', function *() {
     const app = koa();
 
     app.use(paginate());
@@ -189,7 +189,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `first position` is not a safe integer', function *() {
+  it('should return 416 if `first position` is not a safe integer', function *() {
     const app = koa();
 
     app.use(paginate());
@@ -201,7 +201,7 @@ describe('paginate', () => {
       .end();
   });
 
-  it('should give and error if `last position` is not a safe integer', function *() {
+  it('should return 416 if `last position` is not a safe integer', function *() {
     const app = koa();
 
     app.use(paginate());
@@ -210,6 +210,34 @@ describe('paginate', () => {
       .get('/')
       .set('Range', 'items=1-9007199254740992')
       .expect(416)
+      .end();
+  });
+
+  it('should return 206 if `last position` is `*`', function *() {
+    const app = koa();
+
+    app.use(paginate());
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=0-*')
+      .expect(206)
+      .end();
+  });
+
+  it('should return the `length` if `last position` is `*`', function *() {
+    const app = koa();
+
+    app.use(paginate());
+
+    app.use(function *() {
+      this.pagination.length = 20;
+    });
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=0-*')
+      .expect('Content-Range', 'items 0-19/20')
       .end();
   });
 

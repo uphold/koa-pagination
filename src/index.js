@@ -18,6 +18,7 @@ export default function({ maximum = 50, unit = 'items' } = {}) {
   return function *paginate(next) {
     let first = 0;
     let last = maximum;
+    let limit = '*';
 
     // Prevent invalid `maximum` value configuration.
     if (!isFinite(maximum) || !isSafeInteger(maximum) || maximum <= 0) {
@@ -41,19 +42,24 @@ export default function({ maximum = 50, unit = 'items' } = {}) {
       last = range.last;
       unit = range.unit;
 
-      if (!isSafeInteger(first) || !isSafeInteger(last)) {
+      if (!isSafeInteger(first) || last !== '*' && !isSafeInteger(last)) {
         throw new RangeNotSatisfiableError();
       }
     }
 
-    // Prevent pages to be longer than allowed.
-    if (last - first + 1 > maximum) {
-      last = first + maximum - 1;
+    if (isSafeInteger(last)) {
+      // Prevent pages to be longer than allowed.
+      if (last - first + 1 > maximum) {
+        last = first + maximum - 1;
+      }
+
+      // Calculate limit in the specified range.
+      limit = last - first + 1;
     }
 
     // Set pagination object on context.
     this.pagination = {
-      limit: last - first + 1,
+      limit,
       offset: first,
       unit
     };
@@ -65,6 +71,11 @@ export default function({ maximum = 50, unit = 'items' } = {}) {
     // Prevent nonexistent pages.
     if (first > length - 1 && length > 0) {
       throw new RangeNotSatisfiableError();
+    }
+
+    // Set the calculated `last` value.
+    if (last === '*') {
+      last = length;
     }
 
     // Fix `last` value if `length` is lower.

@@ -3,32 +3,29 @@
  * Module dependencies.
  */
 
-var Test = require('co-supertest').Test;
-var http = require('http');
-var join = require('path').join;
-var methods =  require('methods');
+import { Test } from 'co-supertest';
+import { createServer, METHODS as methods } from 'http';
 
 /**
  * Export `Request`.
  */
 
-module.exports = function(prefix) {
-  return function(app) {
-    if ('function' === typeof app) {
-      app = http.createServer(app);
-    }
+export default app => {
+  if (typeof app === 'function') {
+    app = createServer(app);
+  }
 
-    var obj = {};
+  const obj = {};
 
-    methods.forEach(function(method) {
-      obj[method] = function(url) {
-        return new Test(app, method, join(prefix || '/', url));
-      };
+  // Monkey-patch all http methods (GET, PATCH, POST, etc.).
+  methods
+    .map(method => method.toLowerCase())
+    .forEach(method => {
+      obj[method] = url => new Test(app, method, url);
     });
 
-    // Support previous use of del
-    obj.del = obj['delete'];
+  // Support previous use of del.
+  obj.del = obj['delete'];
 
-    return obj;
-  };
+  return obj;
 };

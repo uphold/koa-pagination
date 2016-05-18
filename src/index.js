@@ -3,38 +3,30 @@
  * Module dependencies.
  */
 
-var _ = require('lodash');
-var InvalidConfigurationError = require('./errors/invalid-configuration-error');
-var MalformedRangeError = require('./errors/malformed-range-error');
-var RangeNotSatisfiableError = require('./errors/range-not-satisfiable-error');
-var contentRangeFormat = require('http-content-range-format');
-var isSafeInteger = require('is-safe-integer');
-var rangeSpecifierParser = require('range-specifier-parser');
+import InvalidConfigurationError from './errors/invalid-configuration-error';
+import MalformedRangeError from './errors/malformed-range-error';
+import RangeNotSatisfiableError from './errors/range-not-satisfiable-error';
+import contentRangeFormat from 'http-content-range-format';
+import isSafeInteger from 'is-safe-integer';
+import rangeSpecifierParser from 'range-specifier-parser';
 
 /**
  * Export `PagerMiddleware`.
  */
 
-module.exports = function(options) {
-  options = _.assign({
-    maximum: 50,
-    unit: 'items'
-  }, options);
-
+export default function({ maximum = 50, unit = 'items' } = {}) {
   return function *paginate(next) {
-    var first = 0;
-    var last = options.maximum;
-    var maximum = options.maximum;
-    var unit = options.unit;
+    let first = 0;
+    let last = maximum;
 
     // Prevent invalid `maximum` value configuration.
-    if (!_.isFinite(maximum) || !isSafeInteger(maximum) || maximum <= 0) {
+    if (!isFinite(maximum) || !isSafeInteger(maximum) || maximum <= 0) {
       throw new InvalidConfigurationError();
     }
 
     // Handle `Range` header.
     if (this.get('Range')) {
-      var range = rangeSpecifierParser(this.get('Range'));
+      const range = rangeSpecifierParser(this.get('Range'));
 
       if (range === -1) {
         throw new RangeNotSatisfiableError();
@@ -55,7 +47,7 @@ module.exports = function(options) {
     }
 
     // Prevent pages to be longer than allowed.
-    if ((last - first + 1) > maximum) {
+    if (last - first + 1 > maximum) {
       last = first + maximum - 1;
     }
 
@@ -63,12 +55,12 @@ module.exports = function(options) {
     this.pagination = {
       limit: last - first + 1,
       offset: first,
-      unit: unit
+      unit
     };
 
     yield* next;
 
-    var length = this.pagination.length;
+    const length = this.pagination.length;
 
     // Prevent nonexistent pages.
     if (first > length - 1 && length > 0) {
@@ -87,16 +79,11 @@ module.exports = function(options) {
     }
 
     // Set `Content-Range` based on available units.
-    this.set('Content-Range', contentRangeFormat({
-      first: first,
-      last: last,
-      length: length,
-      unit: unit
-    }));
+    this.set('Content-Range', contentRangeFormat({ first, last, length, unit }));
 
     // Set the response as `Partial Content`.
     if (this.get('Range')) {
       this.status = 206;
     }
   };
-};
+}

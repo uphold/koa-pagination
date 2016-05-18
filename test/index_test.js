@@ -3,18 +3,17 @@
  * Module dependencies.
  */
 
-var koa = require('koa');
-var paginate = require('../');
-var request = require('./request')();
-var util = require('util');
+import koa from 'koa';
+import paginate from '../src';
+import request from './request';
 
 /**
  * Test `paginate`.
  */
 
-describe('paginate', function() {
+describe('paginate', () => {
   it('should return 200 if no `Range` header is provided', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -29,7 +28,7 @@ describe('paginate', function() {
   });
 
   it('should return 206 if a valid `Range` header is provided', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -41,7 +40,7 @@ describe('paginate', function() {
   });
 
   it('should use the default values', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -52,7 +51,7 @@ describe('paginate', function() {
   });
 
   it('should accept a `maximum` option', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ maximum: 3 }));
 
@@ -63,7 +62,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `maximum` is not a number', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ maximum: 'invalid' }));
 
@@ -74,7 +73,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `maximum` is 0', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ maximum: 0 }));
 
@@ -85,7 +84,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `maximum` is lower than 0', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ maximum: -1 }));
 
@@ -96,7 +95,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `maximum` is not a safe integer', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ maximum: 9007199254740993 }));
 
@@ -107,7 +106,7 @@ describe('paginate', function() {
   });
 
   it('should accept a `Range` header', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -119,7 +118,7 @@ describe('paginate', function() {
   });
 
   it('should give an error if the `Range` is malformed', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -131,7 +130,7 @@ describe('paginate', function() {
   });
 
   it('should give an error if the `Range` is invalid', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -143,7 +142,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `first position` value is higher than `length`', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -159,7 +158,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `first position` and `last position` have equal values and are equal to `length`', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -175,7 +174,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `first position` and `last position` have equal values and are higher than `length`', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -191,7 +190,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `first position` is not a safe integer', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -203,7 +202,7 @@ describe('paginate', function() {
   });
 
   it('should give and error if `last position` is not a safe integer', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -215,7 +214,7 @@ describe('paginate', function() {
   });
 
   it('should not allow `last position` value to be higher than `length`', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -231,7 +230,7 @@ describe('paginate', function() {
   });
 
   it('should not allow `last position` to be equal to `length`', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate());
 
@@ -247,7 +246,7 @@ describe('paginate', function() {
   });
 
   it('should not allow `last position` value to be higher than `maximum`', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ maximum: 3 }));
 
@@ -259,10 +258,10 @@ describe('paginate', function() {
   });
 
   it('should use the diference between `last position` and `first position`, plus one, as `limit`', function *() {
-    var app = koa();
+    const app = koa();
 
-    var lastPosition = 6;
-    var firstPosition = 2;
+    const lastPosition = 6;
+    const firstPosition = 2;
 
     app.use(paginate());
 
@@ -272,13 +271,13 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .set('Range', util.format('items=%s-%s', firstPosition, lastPosition))
+      .set('Range', `items=${firstPosition}-${lastPosition}`)
       .end();
   });
 
   it('should use the `first position` as `offset`', function *() {
-    var app = koa();
-    var firstPosition = 2;
+    const app = koa();
+    const firstPosition = 2;
 
     app.use(paginate());
 
@@ -288,12 +287,12 @@ describe('paginate', function() {
 
     yield request(app.listen())
       .get('/')
-      .set('Range', util.format('items=%s-5', firstPosition))
+      .set('Range', `items=${firstPosition}-5`)
       .end();
   });
 
   it('should expose the given `range-unit`', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ unit: 'bytes' }));
 
@@ -309,7 +308,7 @@ describe('paginate', function() {
   });
 
   it('should set the `byte-range-spec` to `*` if length is 0', function *() {
-    var app = koa();
+    const app = koa();
 
     app.use(paginate({ unit: 'bytes' }));
 

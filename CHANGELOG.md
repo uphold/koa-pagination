@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.0.1](https://github.com/seegno/koa-pagination/tree/v2.0.1) (2016-05-18)
+[Full Changelog](https://github.com/seegno/koa-pagination/compare/v2.0.0...v2.0.1)
+
+**Merged pull requests:**
+
+- Update range-specifier-parser@1.0.2 [\#35](https://github.com/seegno/koa-pagination/pull/35) ([nunofgs](https://github.com/nunofgs))
+- Add asterisk instructions to readme [\#34](https://github.com/seegno/koa-pagination/pull/34) ([nunofgs](https://github.com/nunofgs))
+
 ## [v2.0.0](https://github.com/seegno/koa-pagination/tree/v2.0.0) (2016-05-18)
 [Full Changelog](https://github.com/seegno/koa-pagination/compare/v1.1.1...v2.0.0)
 

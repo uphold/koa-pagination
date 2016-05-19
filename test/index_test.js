@@ -213,6 +213,18 @@ describe('paginate', () => {
       .end();
   });
 
+  it('should return 416 if `allowAll` is false and `last position` is `*`', function *() {
+    const app = koa();
+
+    app.use(paginate({ allowAll: false }));
+
+    yield request(app.listen())
+      .get('/')
+      .set('Range', 'items=0-*')
+      .expect(416)
+      .end();
+  });
+
   it('should return 206 if `last position` is `*`', function *() {
     const app = koa();
 

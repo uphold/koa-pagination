@@ -14,7 +14,7 @@ import rangeSpecifierParser from 'range-specifier-parser';
  * Export `PagerMiddleware`.
  */
 
-export default function({ maximum = 50, unit = 'items' } = {}) {
+export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
   return function *paginate(next) {
     let first = 0;
     let last = maximum;
@@ -41,6 +41,10 @@ export default function({ maximum = 50, unit = 'items' } = {}) {
       first = range.first;
       last = range.last;
       unit = range.unit;
+
+      if (!allowAll && last === '*') {
+        throw new RangeNotSatisfiableError();
+      }
 
       if (!isSafeInteger(first) || last !== '*' && !isSafeInteger(last)) {
         throw new RangeNotSatisfiableError();

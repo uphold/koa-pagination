@@ -15,7 +15,7 @@ import rangeSpecifierParser from 'range-specifier-parser';
  */
 
 export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
-  return function *paginate(next) {
+  return async (ctx, next) => {
     let first = 0;
     let last = maximum;
     let limit = '*';
@@ -26,8 +26,8 @@ export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) 
     }
 
     // Handle `Range` header.
-    if (this.get('Range')) {
-      const range = rangeSpecifierParser(this.get('Range'));
+    if (ctx.get('Range')) {
+      const range = rangeSpecifierParser(ctx.get('Range'));
 
       if (range === -1) {
         throw new RangeNotSatisfiableError();
@@ -62,15 +62,15 @@ export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) 
     }
 
     // Set pagination object on context.
-    this.pagination = {
+    ctx.pagination = {
       limit,
       offset: first,
       unit
     };
 
-    yield* next;
+    await next();
 
-    const length = this.pagination.length;
+    const length = ctx.pagination.length;
 
     // Prevent nonexistent pages.
     if (first > length - 1 && length > 0) {
@@ -94,11 +94,11 @@ export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) 
     }
 
     // Set `Content-Range` based on available units.
-    this.set('Content-Range', contentRangeFormat({ first, last, length, unit }));
+    ctx.set('Content-Range', contentRangeFormat({ first, last, length, unit }));
 
     // Set the response as `Partial Content`.
-    if (this.get('Range')) {
-      this.status = 206;
+    if (ctx.get('Range')) {
+      ctx.status = 206;
     }
   };
 }

@@ -12,7 +12,8 @@
     "prepublish": "npm run transpile",
     "test": "NODE_ENV=test mocha $npm_package_options_mocha",
     "transpile": "rm -rf dist/* && babel src --out-dir dist/src",
-    "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist"
+    "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist",
+    "validate": "npm ls"
   },
   "dependencies": {
     "debug": "2.2.0",
@@ -25,27 +26,27 @@
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-eslint": "^6.0.4",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
     "babel-preset-es2015-node4": "^2.1.0",
     "babel-register": "^6.8.0",
-    "co-mocha": "^1.1.2",
-    "co-supertest": "^0.0.10",
     "eslint": "^2.10.2",
     "eslint-config-seegno": "^4.0.0",
     "eslint-plugin-babel": "^3.2.0",
     "eslint-plugin-sort-class-members": "^1.0.1",
     "jscs": "^2.11.0",
     "jscs-config-seegno": "^2.0.0",
-    "koa": "^1.2.0",
+    "koa": "^2.0.0",
     "mocha": "^2.4.5",
     "precommit-hook": "^3.0.0",
     "should": "^8.3.1",
-    "supertest": "^1.2.0"
+    "supertest": "^1.2.0",
+    "supertest-as-promised": "^3.1.0"
   },
   "engines": {
     "node": ">= 4.0.0"
   },
   "options": {
-    "mocha": "--compilers js:babel-register --recursive --require co-mocha --require should"
+    "mocha": "--compilers js:babel-register --recursive --require should"
   },
   "pre-commit": [
     "lint"

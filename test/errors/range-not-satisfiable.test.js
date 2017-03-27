@@ -1,10 +1,11 @@
+'use strict';
 
 /**
  * Module dependencies.
  */
 
-import RangeNotSatisfiableError from '../../src/errors/range-not-satisfiable-error';
-import StandardHttpError from 'standard-http-error';
+const RangeNotSatisfiableError = require('../../errors/range-not-satisfiable-error');
+const StandardHttpError = require('standard-http-error');
 
 /**
  * Test `RangeNotSatisfiableError`.
@@ -14,18 +15,18 @@ describe('RangeNotSatisfiableError', () => {
   it('should inherit from `StandardHttpError`', () => {
     const error = new RangeNotSatisfiableError();
 
-    error.should.be.instanceOf(StandardHttpError);
+    expect(error).toBeInstanceOf(StandardHttpError);
   });
 
   it('should have a default `code`', () => {
     const error = new RangeNotSatisfiableError();
 
-    error.code.should.equal(416);
+    expect(error.code).toEqual(416);
   });
 
   it('should have a default message', () => {
     const error = new RangeNotSatisfiableError();
 
-    error.message.should.equal('Range Not Satisfiable');
+    expect(error.message).toEqual('Range Not Satisfiable');
   });
 });

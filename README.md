@@ -29,21 +29,22 @@ paginate({
 ## Usage
 
 ```javascript
-const koa = require('koa');
+const Koa = require('koa');
 const paginate = require('koa-pagination');
-const app = koa();
 
-app.get('/', paginate(), function *() {
+const app = new Koa();
+
+app.get('/', paginate(), async ctx => {
   // `paginate` middleware will inject a `pagination` object in the `koa` context,
   // which will allow you to use the `pagination.offset` and `pagination.limit`
   // in your data retrieval methods.
-  this.body = foobar.getData({
-    limit: this.pagination.limit,
-    offset: this.pagination.offset
+  ctx.body = await foobar.getData({
+    limit: ctx.pagination.limit,
+    offset: ctx.pagination.offset
   });
 
   // This is needed in order to expose the length in `Content-Range` header.
-  this.pagination.length = foobar.count();
+  ctx.pagination.length = foobar.count();
 });
 
 app.listen(3000);

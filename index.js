@@ -1,21 +1,22 @@
+'use strict';
 
 /**
  * Module dependencies.
  */
 
-import InvalidConfigurationError from './errors/invalid-configuration-error';
-import MalformedRangeError from './errors/malformed-range-error';
-import RangeNotSatisfiableError from './errors/range-not-satisfiable-error';
-import contentRangeFormat from 'http-content-range-format';
-import isSafeInteger from 'is-safe-integer';
-import rangeSpecifierParser from 'range-specifier-parser';
+const InvalidConfigurationError = require('./errors/invalid-configuration-error');
+const MalformedRangeError = require('./errors/malformed-range-error');
+const RangeNotSatisfiableError = require('./errors/range-not-satisfiable-error');
+const contentRangeFormat = require('http-content-range-format');
+const isSafeInteger = require('is-safe-integer');
+const rangeSpecifierParser = require('range-specifier-parser').default;
 
 /**
- * Export `PagerMiddleware`.
+ * Export `PaginateMiddleware`.
  */
 
-export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
-  return function *paginate(next) {
+module.exports = ({ allowAll = true, maximum = 50, unit = 'items' } = {}) => {
+  return async function paginate(ctx, next) {
     let first = 0;
     let last = maximum;
     let limit = '*';
@@ -26,8 +27,8 @@ export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) 
     }
 
     // Handle `Range` header.
-    if (this.get('Range')) {
-      const range = rangeSpecifierParser(this.get('Range'));
+    if (ctx.get('Range')) {
+      const range = rangeSpecifierParser(ctx.get('Range'));
 
       if (range === -1) {
         throw new RangeNotSatisfiableError();
@@ -62,15 +63,15 @@ export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) 
     }
 
     // Set pagination object on context.
-    this.pagination = {
+    ctx.pagination = {
       limit,
       offset: first,
       unit
     };
 
-    yield* next;
+    await next();
 
-    const length = this.pagination.length;
+    const length = ctx.pagination.length;
 
     // Prevent nonexistent pages.
     if (first > length - 1 && length > 0) {
@@ -94,11 +95,11 @@ export default function({ allowAll = true, maximum = 50, unit = 'items' } = {}) 
     }
 
     // Set `Content-Range` based on available units.
-    this.set('Content-Range', contentRangeFormat({ first, last, length, unit }));
+    ctx.set('Content-Range', contentRangeFormat({ first, last, length, unit }));
 
     // Set the response as `Partial Content`.
-    if (this.get('Range')) {
-      this.status = 206;
+    if (ctx.get('Range')) {
+      ctx.status = 206;
     }
   };
-}
+};

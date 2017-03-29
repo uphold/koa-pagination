@@ -12,9 +12,9 @@ Koa Pagination is a middleware to handle [Range Pagination Headers](http://www.w
 
 The middleware can be configured with the following parameters:
 
-- AllowAll: Whether to accept `*` as range-specifier.
-- Maximum: Maximum number of items allowed per page (`50` by default).
-- Unit: Range unit to be used when no `Range` header is provided (`items` by default).
+- `allowAll`: Whether to accept `*` as range-specifier.
+- `maximum`: Maximum number of items allowed per page (`50` by default).
+- `unit`: Range unit to be used when no `Range` header is provided (`items` by default).
 
 You can change the defaults by doing:
 

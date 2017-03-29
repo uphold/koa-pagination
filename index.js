@@ -15,7 +15,7 @@ const rangeSpecifierParser = require('range-specifier-parser').default;
  * Export `PaginateMiddleware`.
  */
 
-module.exports = ({ allowAll = true, maximum = 50, unit = 'items' } = {}) => {
+function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
   return async function paginate(ctx, next) {
     let first = 0;
     let last = maximum;
@@ -102,4 +102,10 @@ module.exports = ({ allowAll = true, maximum = 50, unit = 'items' } = {}) => {
       ctx.status = 206;
     }
   };
-};
+}
+
+/**
+ * Export.
+ */
+
+module.exports = { middleware };

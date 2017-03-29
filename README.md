@@ -19,7 +19,7 @@ The middleware can be configured with the following parameters:
 You can change the defaults by doing:
 
 ```javascript
-paginate({
+middleware({
   allowAll: true,
   maximum: 100,
   unit: 'bytes'
@@ -29,12 +29,12 @@ paginate({
 ## Usage
 
 ```javascript
+const { middleware } = require('koa-pagination');
 const Koa = require('koa');
-const paginate = require('koa-pagination');
 
 const app = new Koa();
 
-app.get('/', paginate(), async ctx => {
+app.get('/', middleware(), async ctx => {
   // `paginate` middleware will inject a `pagination` object in the `koa` context,
   // which will allow you to use the `pagination.offset` and `pagination.limit`
   // in your data retrieval methods.

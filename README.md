@@ -12,13 +12,15 @@ Koa Pagination is a middleware to handle [Range Pagination Headers](http://www.w
 
 The middleware can be configured with the following parameters:
 
-- Maximum: Maximum number of items allowed per page (`50` by default).
-- Unit: Range unit to be used when no `Range` header is provided (`items` by default).
+- `allowAll`: Whether to accept `*` as range-specifier.
+- `maximum`: Maximum number of items allowed per page (`50` by default).
+- `unit`: Range unit to be used when no `Range` header is provided (`items` by default).
 
 You can change the defaults by doing:
 
 ```javascript
 paginate({
+  allowAll: true,
   maximum: 100,
   unit: 'bytes'
 });
@@ -27,9 +29,8 @@ paginate({
 ## Usage
 
 ```javascript
-import koa from 'koa';
-import paginate from 'koa-pagination';
-
+const koa = require('koa');
+const paginate = require('koa-pagination');
 const app = koa();
 
 app.get('/', paginate(), function *() {
@@ -71,6 +72,16 @@ The first example will generate a response with the following `Content-Range` he
 ```
 
 The `*` will be replaced with the total number of items provided in the `length` variable.
+
+##### Codes
+
+| Code | Reason |
+| --- | --- |
+| 200 | `Range` header has not been provided. |
+| 206 | `Range` header is valid. |
+| 412 | `Range` header is malformed. |
+| 416 | `Range` header is invalid. |
+| 500 | Incorrect middleware configuration or unexpected value inside middleware. |
 
 ## Running tests
 

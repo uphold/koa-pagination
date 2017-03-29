@@ -29,9 +29,8 @@ paginate({
 ## Usage
 
 ```javascript
-import koa from 'koa';
-import paginate from 'koa-pagination';
-
+const koa = require('koa');
+const paginate = require('koa-pagination');
 const app = koa();
 
 app.get('/', paginate(), function *() {

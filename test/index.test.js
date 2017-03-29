@@ -4,15 +4,15 @@
  * Module dependencies.
  */
 
+const { middleware } = require('..');
 const Koa = require('koa');
-const paginate = require('..');
 const request = require('supertest');
 
 /**
  * Test `paginate`.
  */
 
-describe('paginate', () => {
+describe('middleware', () => {
   let app;
   let server;
 
@@ -27,7 +27,7 @@ describe('paginate', () => {
   afterEach(() => server.close());
 
   it('should return 200 if no `Range` header is provided', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       ctx.body = '';
@@ -39,7 +39,7 @@ describe('paginate', () => {
   });
 
   it('should return 206 if a valid `Range` header is provided', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -48,7 +48,7 @@ describe('paginate', () => {
   });
 
   it('should use the default values', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -56,7 +56,7 @@ describe('paginate', () => {
   });
 
   it('should accept a `maximum` option', () => {
-    app.use(paginate({ maximum: 3 }));
+    app.use(middleware({ maximum: 3 }));
 
     return request(server)
       .get('/')
@@ -64,7 +64,7 @@ describe('paginate', () => {
   });
 
   it('should return 500 if `maximum` is not a number', () => {
-    app.use(paginate({ maximum: 'invalid' }));
+    app.use(middleware({ maximum: 'invalid' }));
 
     return request(server)
       .get('/')
@@ -72,7 +72,7 @@ describe('paginate', () => {
   });
 
   it('should return 500 if `maximum` is 0', () => {
-    app.use(paginate({ maximum: 0 }));
+    app.use(middleware({ maximum: 0 }));
 
     return request(server)
       .get('/')
@@ -80,7 +80,7 @@ describe('paginate', () => {
   });
 
   it('should return 500 if `maximum` is lower than 0', () => {
-    app.use(paginate({ maximum: -1 }));
+    app.use(middleware({ maximum: -1 }));
 
     return request(server)
       .get('/')
@@ -88,7 +88,7 @@ describe('paginate', () => {
   });
 
   it('should return 500 if `maximum` is not a safe integer', () => {
-    app.use(paginate({ maximum: 9007199254740993 }));
+    app.use(middleware({ maximum: 9007199254740993 }));
 
     return request(server)
       .get('/')
@@ -96,7 +96,7 @@ describe('paginate', () => {
   });
 
   it('should accept a `Range` header', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -105,7 +105,7 @@ describe('paginate', () => {
   });
 
   it('should return 412 if the `Range` is malformed', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -114,7 +114,7 @@ describe('paginate', () => {
   });
 
   it('should return 416 if the `Range` is invalid', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -123,7 +123,7 @@ describe('paginate', () => {
   });
 
   it('should return 416 if `first position` value is higher than `length`', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       ctx.pagination.length = 10;
@@ -136,7 +136,7 @@ describe('paginate', () => {
   });
 
   it('should return 416 if `first position` and `last position` have equal values and are equal to `length`', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       ctx.pagination.length = 10;
@@ -149,7 +149,7 @@ describe('paginate', () => {
   });
 
   it('should return 416 if `first position` and `last position` have equal values and are higher than `length`', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       ctx.pagination.length = 10;
@@ -162,7 +162,7 @@ describe('paginate', () => {
   });
 
   it('should return 416 if `first position` is not a safe integer', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -171,7 +171,7 @@ describe('paginate', () => {
   });
 
   it('should return 416 if `last position` is not a safe integer', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -180,7 +180,7 @@ describe('paginate', () => {
   });
 
   it('should return 416 if `allowAll` is false and `last position` is `*`', () => {
-    app.use(paginate({ allowAll: false }));
+    app.use(middleware({ allowAll: false }));
 
     return request(server)
       .get('/')
@@ -189,7 +189,7 @@ describe('paginate', () => {
   });
 
   it('should return 206 if `last position` is `*`', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     return request(server)
       .get('/')
@@ -198,7 +198,7 @@ describe('paginate', () => {
   });
 
   it('should return the `length` if `last position` is `*`', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       ctx.pagination.length = 20;
@@ -211,7 +211,7 @@ describe('paginate', () => {
   });
 
   it('should not allow `last position` value to be higher than `length`', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       ctx.pagination.length = 3;
@@ -224,7 +224,7 @@ describe('paginate', () => {
   });
 
   it('should not allow `last position` to be equal to `length`', () => {
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       ctx.pagination.length = 20;
@@ -237,7 +237,7 @@ describe('paginate', () => {
   });
 
   it('should not allow `last position` value to be higher than `maximum`', () => {
-    app.use(paginate({ maximum: 3 }));
+    app.use(middleware({ maximum: 3 }));
 
     return request(server)
       .get('/')
@@ -249,7 +249,7 @@ describe('paginate', () => {
     const lastPosition = 6;
     const firstPosition = 2;
 
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       expect(ctx.pagination.limit).toEqual(lastPosition - firstPosition + 1);
@@ -263,7 +263,7 @@ describe('paginate', () => {
   it('should use the `first position` as `offset`', () => {
     const firstPosition = 2;
 
-    app.use(paginate());
+    app.use(middleware());
 
     app.use(ctx => {
       expect(ctx.pagination.offset).toEqual(firstPosition);
@@ -275,7 +275,7 @@ describe('paginate', () => {
   });
 
   it('should expose the given `range-unit`', () => {
-    app.use(paginate({ unit: 'bytes' }));
+    app.use(middleware({ unit: 'bytes' }));
 
     app.use(ctx => {
       expect(ctx.pagination.unit).toEqual('foobar');
@@ -288,7 +288,7 @@ describe('paginate', () => {
   });
 
   it('should set the `byte-range-spec` to `*` if length is 0', () => {
-    app.use(paginate({ unit: 'bytes' }));
+    app.use(middleware({ unit: 'bytes' }));
 
     app.use(ctx => {
       ctx.pagination.length = 0;

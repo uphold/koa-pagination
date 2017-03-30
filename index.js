@@ -4,15 +4,19 @@
  * Module dependencies.
  */
 
-const InvalidConfigurationError = require('./errors/invalid-configuration-error');
-const MalformedRangeError = require('./errors/malformed-range-error');
-const RangeNotSatisfiableError = require('./errors/range-not-satisfiable-error');
 const contentRangeFormat = require('http-content-range-format');
+const errors = require('./errors');
 const isSafeInteger = require('is-safe-integer');
 const rangeSpecifierParser = require('range-specifier-parser').default;
 
 /**
- * Export `PaginateMiddleware`.
+ * Instances.
+ */
+
+const { InvalidConfigurationError, MalformedRangeError, RangeNotSatisfiableError } = errors;
+
+/**
+ * Paginate middleware.
  */
 
 function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
@@ -105,7 +109,7 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
 }
 
 /**
- * Export.
+ * Exports.
  */
 
-module.exports = { middleware };
+module.exports = { errors, middleware };

@@ -1,7 +1,7 @@
 {
   "name": "koa-pagination",
   "version": "2.0.1",
-  "description": "Koa Pagination",
+  "description": "A middleware to handle Range Pagination Headers using Range & Content-Range entity-headers",
   "license": "MIT",
   "author": "Seegno",
   "main": "src",

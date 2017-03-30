@@ -4,8 +4,8 @@
   "description": "Koa Pagination",
   "license": "MIT",
   "author": "Seegno",
-  "repository": "git@github.com:seegno/koa-pagination",
   "main": "src",
+  "repository": "seegno/koa-pagination",
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
     "lint": "eslint src test",

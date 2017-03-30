@@ -13,12 +13,12 @@
     "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
   },
   "dependencies": {
-    "debug": "2.6.3",
-    "http-content-range-format": "1.0.0",
-    "is-safe-integer": "1.0.2",
-    "range-specifier-parser": "v1.0.2",
-    "standard-http-error": "2.0.0",
-    "util": "0.10.3"
+    "debug": "^2.6.3",
+    "http-content-range-format": "^1.0.0",
+    "is-safe-integer": "^1.0.2",
+    "range-specifier-parser": "^1.0.2",
+    "standard-http-error": "^2.0.0",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "eslint": "^3.16.1",

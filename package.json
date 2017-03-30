@@ -17,8 +17,7 @@
     "http-content-range-format": "^1.0.0",
     "is-safe-integer": "^1.0.2",
     "range-specifier-parser": "^1.0.2",
-    "standard-http-error": "^2.0.0",
-    "util": "^0.10.3"
+    "standard-http-error": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^3.16.1",

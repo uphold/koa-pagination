@@ -1,5 +1,19 @@
 # Changelog
 
+## [v3.0.0](https://github.com/seegno/koa-pagination/tree/v3.0.0) (2017-03-30)
+[Full Changelog](https://github.com/seegno/koa-pagination/compare/v2.0.1...v3.0.0)
+
+**Merged pull requests:**
+
+- Move source to /src [\#45](https://github.com/seegno/koa-pagination/pull/45) ([kurayama](https://github.com/kurayama))
+- Improve README [\#44](https://github.com/seegno/koa-pagination/pull/44) ([kurayama](https://github.com/kurayama))
+- Replace default export by named middleware and errors [\#43](https://github.com/seegno/koa-pagination/pull/43) ([nunofgs](https://github.com/nunofgs))
+- Add .npmignore [\#42](https://github.com/seegno/koa-pagination/pull/42) ([ruimarinho](https://github.com/ruimarinho))
+- Add LICENSE [\#41](https://github.com/seegno/koa-pagination/pull/41) ([ruimarinho](https://github.com/ruimarinho))
+- Update koa@2 [\#40](https://github.com/seegno/koa-pagination/pull/40) ([kurayama](https://github.com/kurayama))
+- Update README [\#38](https://github.com/seegno/koa-pagination/pull/38) ([franciscocardoso](https://github.com/franciscocardoso))
+- Add `allowAll` parameter to disable asterisk [\#37](https://github.com/seegno/koa-pagination/pull/37) ([nunofgs](https://github.com/nunofgs))
+
 ## [v2.0.1](https://github.com/seegno/koa-pagination/tree/v2.0.1) (2016-05-18)
 [Full Changelog](https://github.com/seegno/koa-pagination/compare/v2.0.0...v2.0.1)
 

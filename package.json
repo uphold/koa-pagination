@@ -9,6 +9,7 @@
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
     "lint": "eslint src test",
+    "lint-staged": "lint-staged",
     "test": "jest --coverage --verbose --env=node",
     "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
   },
@@ -24,13 +25,17 @@
     "eslint-config-seegno": "^9.0.0",
     "jest": "^19.0.2",
     "koa": "^2.0.1",
-    "precommit-hook": "^3.0.0",
+    "lint-staged": "^3.4.0",
+    "pre-commit": "^1.2.2",
     "supertest": "^3.0.0"
   },
   "engines": {
     "node": ">=7.6"
   },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
   "pre-commit": [
-    "lint"
+    "lint-staged"
   ]
 }

@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const MalformedRangeError = require('../../errors/malformed-range-error');
+const { MalformedRangeError } = require('../..').errors;
 const StandardHttpError = require('standard-http-error');
 
 /**

@@ -5,10 +5,11 @@
   "license": "MIT",
   "author": "Seegno",
   "repository": "git@github.com:seegno/koa-pagination",
+  "main": "src",
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
-    "lint": "eslint index.js errors test",
-    "test": "jest --coverage --verbose --env=node" ,
+    "lint": "eslint src test",
+    "test": "jest --coverage --verbose --env=node",
     "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist"
   },
   "dependencies": {

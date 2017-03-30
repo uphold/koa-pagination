@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const RangeNotSatisfiableError = require('../../errors/range-not-satisfiable-error');
+const { RangeNotSatisfiableError } = require('../..').errors;
 const StandardHttpError = require('standard-http-error');
 
 /**

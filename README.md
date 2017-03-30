@@ -1,12 +1,24 @@
-# Koa Pagination
+# koa-pagination
 
-[![npm version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Code Climate][codeclimate-gpa-image]][codeclimate-url] [![Test Coverage][codeclimate-coverage-image]][codeclimate-url]
+`koa-pagination` is a middleware to handle [Range Pagination Headers](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) using `Range` & `Content-Range` entity-headers.
 
-Koa Pagination is a middleware to handle [Range Pagination Headers](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html) using `Range` & `Content-Range` entity-headers.
+## Status
+
+[![npm version][npm-image]][npm-url] [![build status][travis-image]][travis-url]
 
 ## Installation
 
-`npm install --save koa-pagination`
+Install the package via `yarn`:
+
+```sh
+❯ yarn add koa-pagination
+```
+
+or via `npm`:
+
+```sh
+❯ npm install koa-pagination --save
+```
 
 ### Configuration
 
@@ -74,35 +86,28 @@ The first example will generate a response with the following `Content-Range` he
 
 The `*` will be replaced with the total number of items provided in the `length` variable.
 
-##### Codes
+#### Codes
 
-| Code | Reason |
-| --- | --- |
-| 200 | `Range` header has not been provided. |
-| 206 | `Range` header is valid. |
-| 412 | `Range` header is malformed. |
-| 416 | `Range` header is invalid. |
-| 500 | Incorrect middleware configuration or unexpected value inside middleware. |
+Code | Reason
+---- | -------------------------------------------------------------------------
+200  | `Range` header has not been provided.
+206  | `Range` header is valid.
+412  | `Range` header is malformed.
+416  | `Range` header is invalid.
+500  | Incorrect middleware configuration or unexpected value inside middleware.
 
-## Running tests
+## Tests
 
 ```sh
-npm test
+❯ yarn test
 ```
 
 ## Release
 
 ```sh
-npm version [<newversion> | major | minor | patch] -m "Release %s"
+❯ npm version [<new version> | major | minor | patch] -m "Release %s"
 ```
 
-## License
-
-MIT
-
-[codeclimate-coverage-image]: https://img.shields.io/codeclimate/coverage/github/seegno/koa-pagination.svg?style=flat-square
-[codeclimate-gpa-image]: https://img.shields.io/codeclimate/github/seegno/koa-pagination.svg?style=flat-square
-[codeclimate-url]: https://codeclimate.com/github/seegno/koa-pagination
 [npm-image]: https://img.shields.io/npm/v/koa-pagination.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/koa-pagination
 [travis-image]: https://img.shields.io/travis/seegno/koa-pagination.svg?style=flat-square

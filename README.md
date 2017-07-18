@@ -110,5 +110,5 @@ Code | Reason
 
 [npm-image]: https://img.shields.io/npm/v/koa-pagination.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/koa-pagination
-[travis-image]: https://img.shields.io/travis/seegno/koa-pagination.svg?style=flat-square
-[travis-url]: https://travis-ci.org/seegno/koa-pagination
+[travis-image]: https://img.shields.io/travis/uphold/koa-pagination.svg?style=flat-square
+[travis-url]: https://travis-ci.org/uphold/koa-pagination

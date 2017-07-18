@@ -3,9 +3,9 @@
   "version": "3.0.0",
   "description": "A middleware to handle Range Pagination Headers using Range & Content-Range entity-headers",
   "license": "MIT",
-  "author": "Seegno",
+  "author": "Uphold",
   "main": "src",
-  "repository": "seegno/koa-pagination",
+  "repository": "uphold/koa-pagination",
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
     "lint": "eslint src test",

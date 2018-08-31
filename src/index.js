@@ -101,10 +101,13 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
     // Set `Content-Range` based on available units.
     ctx.set('Content-Range', contentRangeFormat({ first, last, length, unit }));
 
-    // Set the response as `Partial Content`.
-    if (ctx.get('Range')) {
-      ctx.status = 206;
+    // Allow non-successful status codes.
+    if (ctx.status < 200 || ctx.status > 300) {
+      return;
     }
+
+    // Set the response as `Partial Content`.
+    ctx.status = 206;
   };
 }
 

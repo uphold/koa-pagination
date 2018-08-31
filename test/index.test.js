@@ -26,7 +26,7 @@ describe('middleware', () => {
 
   afterEach(() => server.close());
 
-  it('should return 200 if no `Range` header is provided', () => {
+  it('should return 206 if no `Range` header is provided', () => {
     app.use(middleware());
 
     app.use(ctx => {
@@ -35,16 +35,19 @@ describe('middleware', () => {
 
     return request(server)
       .get('/')
-      .expect(200);
+      .expect(206);
   });
 
-  it('should return 206 if a valid `Range` header is provided', () => {
+  it('should not return 206 if it is not a successful request', () => {
     app.use(middleware());
+
+    app.use(ctx => {
+      ctx.status = 400;
+    });
 
     return request(server)
       .get('/')
-      .set('Range', 'items=0-5')
-      .expect(206);
+      .expect(400);
   });
 
   it('should use the default values', () => {
@@ -191,6 +194,10 @@ describe('middleware', () => {
   it('should return 206 if `last position` is `*`', () => {
     app.use(middleware());
 
+    app.use(ctx => {
+      ctx.status = 200;
+    });
+
     return request(server)
       .get('/')
       .set('Range', 'items=0-*')
@@ -219,7 +226,6 @@ describe('middleware', () => {
 
     return request(server)
       .get('/')
-      .set('Range', 'items=0-5')
       .expect('Content-Range', 'items 0-2/3');
   });
 
@@ -241,7 +247,6 @@ describe('middleware', () => {
 
     return request(server)
       .get('/')
-      .set('Range', 'items=0-5')
       .expect('Content-Range', 'items 0-2/*');
   });
 

@@ -24,7 +24,7 @@
     "eslint-config-uphold": "^0.2.0",
     "jest": "^19.0.2",
     "koa": "^2.6.2",
-    "lint-staged": "^3.6.1",
+    "lint-staged": "^8.1.0",
     "pre-commit": "^1.2.2",
     "supertest": "^3.3.0"
   },

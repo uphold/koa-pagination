@@ -14,7 +14,6 @@
     "version": "npm run changelog && git add -A CHANGELOG.md src"
   },
   "dependencies": {
-    "debug": "^2.6.3",
     "http-content-range-format": "^1.0.0",
     "range-specifier-parser": "^1.0.2",
     "standard-http-error": "^2.0.1"

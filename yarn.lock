@@ -744,7 +744,7 @@ date-fns@^1.27.2:
   version "1.28.2"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.2.tgz#19e4192d68875c0bf7c9537e3f296a8ec64853ef"
 
-debug@*, debug@^2.1.1, debug@^2.2.0, debug@^2.6.3:
+debug@*, debug@^2.1.1, debug@^2.2.0:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
   dependencies:

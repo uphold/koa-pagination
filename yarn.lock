@@ -1407,12 +1407,6 @@ is-resolvable@^1.0.0:
   dependencies:
     tryit "^1.0.1"
 
-is-safe-integer@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/is-safe-integer/-/is-safe-integer-1.0.2.tgz#ca2de0251f564408f9d7630c28e2e02ce18ea0aa"
-  dependencies:
-    max-safe-integer "^1.0.0"
-
 is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
@@ -1982,10 +1976,6 @@ makeerror@1.0.x:
   resolved "https://registry.yarnpkg.com/makeerror/-/makeerror-1.0.11.tgz#e01a5c9109f2af79660e4e8b9587790184f5a96c"
   dependencies:
     tmpl "1.0.x"
-
-max-safe-integer@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/max-safe-integer/-/max-safe-integer-1.0.1.tgz#f38060be2c563d8c02e6d48af39122fd83b6f410"
 
 media-typer@0.3.0:
   version "0.3.0"

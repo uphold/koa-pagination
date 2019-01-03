@@ -6,7 +6,6 @@
 
 const contentRangeFormat = require('http-content-range-format');
 const errors = require('./errors');
-const isSafeInteger = require('is-safe-integer');
 const rangeSpecifierParser = require('range-specifier-parser').default;
 
 /**
@@ -26,7 +25,7 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
     let limit = '*';
 
     // Prevent invalid `maximum` value configuration.
-    if (!isFinite(maximum) || !isSafeInteger(maximum) || maximum <= 0) {
+    if (!isFinite(maximum) || !Number.isSafeInteger(maximum) || maximum <= 0) {
       throw new InvalidConfigurationError();
     }
 
@@ -54,12 +53,12 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
         throw new RangeNotSatisfiableError();
       }
 
-      if (!isSafeInteger(first) || last !== '*' && !isSafeInteger(last)) {
+      if (!Number.isSafeInteger(first) || last !== '*' && !Number.isSafeInteger(last)) {
         throw new RangeNotSatisfiableError();
       }
     }
 
-    if (isSafeInteger(last)) {
+    if (Number.isSafeInteger(last)) {
       // Prevent pages to be longer than allowed.
       if (last - first + 1 > maximum) {
         last = first + maximum - 1;

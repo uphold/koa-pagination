@@ -101,7 +101,8 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
       last = undefined;
     }
 
-    // Set `Content-Range` based on available units.
+    // Set response headers based on available units.
+    ctx.set('Accept-Ranges', unit);
     ctx.set('Content-Range', contentRangeFormat({ first, last, length, unit }));
 
     // Allow non-successful status codes.

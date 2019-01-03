@@ -288,6 +288,14 @@ describe('middleware', () => {
       .set('Range', `items=${firstPosition}-5`);
   });
 
+  it('should expose the accepted range unit', () => {
+    app.use(middleware({ unit: 'foobar' }));
+
+    return request(server)
+      .get('/')
+      .expect('Accept-Ranges', 'foobar');
+  });
+
   it('should set the `byte-range-spec` to `*` if length is 0', () => {
     app.use(middleware({ unit: 'bytes' }));
 

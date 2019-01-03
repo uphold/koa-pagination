@@ -116,6 +116,15 @@ describe('middleware', () => {
       .expect(412, 'Precondition Failed');
   });
 
+  it('should return 412 if the `Range` unit is not supported', () => {
+    app.use(middleware({ unit: 'bytes' }));
+
+    return request(server)
+      .get('/')
+      .set('Range', 'items=0-*')
+      .expect(412);
+  });
+
   it('should return 416 if the `Range` is invalid', () => {
     app.use(middleware());
 
@@ -277,19 +286,6 @@ describe('middleware', () => {
     return request(server)
       .get('/')
       .set('Range', `items=${firstPosition}-5`);
-  });
-
-  it('should expose the given `range-unit`', () => {
-    app.use(middleware({ unit: 'bytes' }));
-
-    app.use(ctx => {
-      expect(ctx.pagination.unit).toEqual('foobar');
-    });
-
-    return request(server)
-      .get('/')
-      .set('Range', 'foobar=0-5')
-      .expect('Content-Range', 'foobar 0-5/*');
   });
 
   it('should set the `byte-range-spec` to `*` if length is 0', () => {

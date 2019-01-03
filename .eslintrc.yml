@@ -1,5 +1,1 @@
-extends: seegno
-env:
-  jasmine: true
-  jest: true
-  mocha: false
+extends: uphold

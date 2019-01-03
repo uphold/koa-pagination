@@ -2665,10 +2665,12 @@ staged-git-files@0.0.4:
 "standard-error@>= 1.1.0 < 2":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/standard-error/-/standard-error-1.1.0.tgz#23e5168fa1c0820189e5812701a79058510d0d34"
+  integrity sha1-I+UWj6HAggGJ5YEnAaeQWFENDTQ=
 
-standard-http-error@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/standard-http-error/-/standard-http-error-2.0.0.tgz#b59295c13f67fffa4b78973f2e522dc1426b3df5"
+standard-http-error@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/standard-http-error/-/standard-http-error-2.0.1.tgz#f8ae9172e3cef9cb38d2e7084a1925f57a7c34bd"
+  integrity sha1-+K6RcuPO+cs40ucIShkl9Xp8NL0=
   dependencies:
     standard-error ">= 1.1.0 < 2"
 

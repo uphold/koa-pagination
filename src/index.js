@@ -42,10 +42,13 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
         throw new MalformedRangeError();
       }
 
-      // Update `limit`, `offset` and `unit` values.
+      if (range.unit !== unit) {
+        throw new MalformedRangeError();
+      }
+
+      // Update `limit`, `offset` values.
       first = range.first;
       last = range.last;
-      unit = range.unit;
 
       if (!allowAll && last === '*') {
         throw new RangeNotSatisfiableError();

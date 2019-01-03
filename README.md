@@ -26,7 +26,7 @@ The middleware can be configured with the following parameters:
 
 - `allowAll`: Whether to accept `*` as range-specifier.
 - `maximum`: Maximum number of items allowed per page (`50` by default).
-- `unit`: Range unit to be used when no `Range` header is provided (`items` by default).
+- `unit`: Accepted range unit (`items` by default).
 
 You can change the defaults by doing:
 

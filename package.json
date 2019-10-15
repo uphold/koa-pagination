@@ -14,7 +14,7 @@
     "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
   },
   "dependencies": {
-    "debug": "^2.6.3",
+    "debug": "^4.1.1",
     "http-content-range-format": "^1.0.0",
     "range-specifier-parser": "^1.0.2",
     "standard-http-error": "^2.0.1"

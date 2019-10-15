@@ -7,11 +7,11 @@
   "main": "src",
   "repository": "uphold/koa-pagination",
   "scripts": {
-    "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
+    "changelog": "github-changelog-generator -f v$npm_package_version > CHANGELOG.md",
     "lint": "eslint src test",
     "lint-staged": "lint-staged",
     "test": "jest --coverage --verbose --env=node",
-    "version": "npm run changelog --future-release=$npm_package_version && git add -A CHANGELOG.md"
+    "version": "npm run changelog && git add -A CHANGELOG.md"
   },
   "dependencies": {
     "debug": "^4.1.1",
@@ -20,6 +20,7 @@
     "standard-http-error": "^2.0.1"
   },
   "devDependencies": {
+    "@uphold/github-changelog-generator": "^1.0.1",
     "eslint": "^6.5.1",
     "eslint-config-uphold": "^1.0.1",
     "jest": "^24.9.0",

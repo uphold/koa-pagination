@@ -1,5 +1,16 @@
 # Changelog
 
+## [v4.0.0](https://github.com/uphold/koa-pagination/releases/tag/v4.0.0) (2019-10-15)
+- Add github-changelog-generator as dev-dependency [\#59](https://github.com/uphold/koa-pagination/pull/59) ([eduardoconceicao](https://github.com/eduardoconceicao))
+- Update sshpk to 1.16.1 [\#58](https://github.com/uphold/koa-pagination/pull/58) ([eduardoconceicao](https://github.com/eduardoconceicao))
+- Update dependencies [\#57](https://github.com/uphold/koa-pagination/pull/57) ([eduardoconceicao](https://github.com/eduardoconceicao))
+- Remove is-safe-integer dependency [\#54](https://github.com/uphold/koa-pagination/pull/54) ([nunofgs](https://github.com/nunofgs))
+- Update standard-http-error@2.0.1 [\#55](https://github.com/uphold/koa-pagination/pull/55) ([nunofgs](https://github.com/nunofgs))
+- Expose `Accept-Ranges` header [\#52](https://github.com/uphold/koa-pagination/pull/52) ([nunofgs](https://github.com/nunofgs))
+- Fix invalid range unit override [\#51](https://github.com/uphold/koa-pagination/pull/51) ([nunofgs](https://github.com/nunofgs))
+- Do not overwrite status if it is not successful [\#50](https://github.com/uphold/koa-pagination/pull/50) ([nunofgs](https://github.com/nunofgs))
+- Update ownership [\#46](https://github.com/uphold/koa-pagination/pull/46) ([ruimarinho](https://github.com/ruimarinho))
+
 ## [v3.0.0](https://github.com/uphold/koa-pagination/releases/tag/v3.0.0) (2017-03-30)
 - Move source to /src [\#45](https://github.com/uphold/koa-pagination/pull/45) ([kurayama](https://github.com/kurayama))
 - Improve README [\#44](https://github.com/uphold/koa-pagination/pull/44) ([kurayama](https://github.com/kurayama))

@@ -53,7 +53,7 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
         throw new RangeNotSatisfiableError();
       }
 
-      if (!Number.isSafeInteger(first) || last !== '*' && !Number.isSafeInteger(last)) {
+      if (!Number.isSafeInteger(first) || (last !== '*' && !Number.isSafeInteger(last))) {
         throw new RangeNotSatisfiableError();
       }
     }
@@ -77,7 +77,7 @@ function middleware({ allowAll = true, maximum = 50, unit = 'items' } = {}) {
 
     await next();
 
-    const length = ctx.pagination.length;
+    const { length } = ctx.pagination;
 
     // Prevent nonexistent pages.
     if (first > length - 1 && length > 0) {

@@ -20,12 +20,13 @@
     "standard-http-error": "^2.0.1"
   },
   "devDependencies": {
-    "eslint": "^3.16.1",
-    "eslint-config-seegno": "^9.0.0",
+    "eslint": "^6.5.1",
+    "eslint-config-uphold": "^1.0.1",
     "jest": "^24.9.0",
     "koa": "^2.0.1",
     "lint-staged": "^3.4.0",
     "pre-commit": "^1.2.2",
+    "prettier": "^1.18.2",
     "supertest": "^3.0.0"
   },
   "engines": {
